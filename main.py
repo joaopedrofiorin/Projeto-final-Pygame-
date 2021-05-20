@@ -5,6 +5,9 @@ pygame.init()
 tela = pygame.display.set_mode((1250,400))
 pygame.display.set_caption('T-rex Game')
 
+imagem = pygame.image.load('Imagens\Velho Oeste.jpg').convert()
+imagem = pygame.transform.scale(imagem, (1250, 400))
+
 game = True 
 
 while game:
@@ -14,6 +17,7 @@ while game:
             game = False 
     
     tela.fill((255,255,255))
+    tela.blit(imagem, (0,0))
 
     pygame.display.update()
 
