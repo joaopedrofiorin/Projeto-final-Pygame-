@@ -34,9 +34,9 @@ while game:
             game = False 
 
     # Manipulação do Background
-    if muda_fundo % 1000 == 0:
+    if muda_fundo % 2500 == 0:
         index_bg = (index_bg + 1) % len(lista_bg)
-        speed_bg += 3
+        speed_bg += 2
     
     image_bg = lista_bg[index_bg]
 
