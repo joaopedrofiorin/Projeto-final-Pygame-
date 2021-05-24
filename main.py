@@ -21,7 +21,7 @@ i = 0 #Responsável pelas transições
 limite = 1250 #limite da tela para começar uma nova imagem 
 muda_fundo = 1 #marca de transição
 game = True 
-
+clock = pygame.time.Clock() #Velocidade dos backgrounds
 
 lista_bg = [imagem_cidade,imagem_floresta,imagem_inverno,imagem_praia,imagem_velho]
 index_bg = 0
