@@ -19,98 +19,37 @@ imagem_velho = pygame.transform.scale(imagem_velho, (1250, 400))
 
 i = 0 #Responsável pelas transições
 limite = 1250 #limite da tela para começar uma nova imagem 
-muda_fundo = 0 #marca de transição
+muda_fundo = 1 #marca de transição
 game = True 
 clock = pygame.time.Clock() #Velocidade dos backgrounds
 
+lista_bg = [imagem_cidade,imagem_floresta,imagem_inverno,imagem_praia,imagem_velho]
+index_bg = 0
+speed_bg = 2
+
 while game:
- 
-    if muda_fundo >= 0 and  muda_fundo <= 20000:
-        for eventos in pygame.event.get():
-            if eventos.type == pygame.QUIT:
-                game = False 
-        
-        tela.fill((255,255,255))
-        
-        tela.blit(imagem_cidade, (i,0))
-        tela.blit(imagem_cidade, (limite+i,0))
-        if i == -limite:
-            i = 0
-        i -= 1
 
-        muda_fundo += 8 #tempo de transição
-        clock.tick(450)
-        pygame.display.update()
+    for eventos in pygame.event.get():
+        if eventos.type == pygame.QUIT:
+            game = False 
+
+    # Manipulação do Background
+    if muda_fundo % 1000 == 0:
+        index_bg = (index_bg + 1) % len(lista_bg)
+        speed_bg += 3
     
-    elif muda_fundo > 20000 and muda_fundo <= 40000:
-        for eventos in pygame.event.get():
-            if eventos.type == pygame.QUIT:
-                game = False 
-        
-        tela.fill((255,255,255))
-        
-        tela.blit(imagem_floresta, (i,0))
-        tela.blit(imagem_floresta, (limite+i,0))
-        if i == -limite:
-            i = 0
-        i -= 1
+    image_bg = lista_bg[index_bg]
 
-        muda_fundo += 8
-        clock.tick(550)
-        pygame.display.update()
+    tela.fill((255,255,255))
 
-    elif muda_fundo > 40000 and muda_fundo <= 60000:
-        for eventos in pygame.event.get():
-            if eventos.type == pygame.QUIT:
-                game = False 
+    tela.blit(image_bg, (i,0))
+    tela.blit(image_bg, (limite+i,0))
+    if i <= -limite:
+        i = i + limite
+    i -= speed_bg
+
+    muda_fundo += 1 #tempo de transição
         
-        tela.fill((255,255,255))
-        
-        tela.blit(imagem_inverno, (i,0))
-        tela.blit(imagem_inverno, (limite+i,0))
-        if i == -limite:
-            i = 0
-        i -= 1
-
-        muda_fundo += 8
-        clock.tick(1000)
-        pygame.display.update()
-
-    elif muda_fundo > 60000 and muda_fundo <= 80000:
-        for eventos in pygame.event.get():
-            if eventos.type == pygame.QUIT:
-                game = False 
-        
-        tela.fill((255,255,255))
-        
-        tela.blit(imagem_praia, (i,0))
-        tela.blit(imagem_praia, (limite+i,0))
-        if i == -limite:
-            i = 0
-        i -= 1
-
-        muda_fundo += 8
-        clock.tick(700)
-        pygame.display.update()
-
-    elif muda_fundo > 80000 and muda_fundo <= 100000:
-        for eventos in pygame.event.get():
-            if eventos.type == pygame.QUIT:
-                game = False 
-        
-        tela.fill((255,255,255))
-        
-        tela.blit(imagem_velho, (i,0))
-        tela.blit(imagem_velho, (limite+i,0))
-        if i == -limite:
-            i = 0
-        i -= 1
-
-        muda_fundo += 8
-        clock.tick(750)
-        pygame.display.update()
-
-    else:
-        muda_fundo = 0
+    pygame.display.update()
 
 pygame.quit()
