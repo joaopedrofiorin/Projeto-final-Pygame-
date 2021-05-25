@@ -24,13 +24,13 @@ imagem_velho = pygame.image.load('Imagens\Backgrounds\Velho Oeste.png').convert(
 imagem_velho = pygame.transform.scale(imagem_velho, (WIDTH, HEIGHT))
 
 # Godzilla: 
-zilla_run1 = pygame.image.load('Imagens\Backgrounds\Dino\ZillaRun1.png').convert()
-zilla_run2 = pygame.image.load('Imagens\Backgrounds\Dino\ZillaRun2.png').convert()
-zilla_duck1 = pygame.image.load('Imagens\Backgrounds\Dino\ZillaDuck1.png').convert()
-zilla_duck2 = pygame.image.load('Imagens\Backgrounds\Dino\ZillaDuck2.png').convert()
-zilla_jump = pygame.image.load('Imagens\Backgrounds\Dino\ZillaJump.png').convert()
-zilla_start = pygame.image.load('Imagens\Backgrounds\Dino\ZillaStart.png').convert()
-zilla_dead = pygame.image.load('Imagens\Backgrounds\Dino\ZillaDead.png').convert()
+zilla_run1 = pygame.image.load('Imagens\Dino\ZillaRun1.png').convert()
+zilla_run2 = pygame.image.load('Imagens\Dino\ZillaRun2.png').convert()
+zilla_duck1 = pygame.image.load('Imagens\Dino\ZillaDuck1.png').convert()
+zilla_duck2 = pygame.image.load('Imagens\Dino\ZillaDuck2.png').convert()
+zilla_jump = pygame.image.load('Imagens\Dino\ZillaJump.png').convert()
+zilla_start = pygame.image.load('Imagens\Dino\ZillaStart.png').convert()
+zilla_dead = pygame.image.load('Imagens\Dino\ZillaDead.png').convert()
 
 # Listas Zilla:
 RUNNING = [zilla_run1,zilla_run2]
