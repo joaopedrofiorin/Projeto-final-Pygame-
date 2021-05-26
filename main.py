@@ -1,5 +1,5 @@
 import pygame 
-from pygame.constants import K_DOWN 
+from pygame.constants import K_DOWN, TIMER_RESOLUTION 
 
 pygame.init()
 
@@ -77,7 +77,7 @@ class Zilla:
         if Teclas[pygame.K_UP] and not self.jump_zilla: # Pula com a seta pra cima pressionada
             self.run_zilla = False
             self.duck_zilla = False 
-            self.jump_zilla = True 
+            self.jump_zilla = TIMER_RESOLUTION
         elif Teclas[pygame.K_DOWN] and not self.jump_zilla: # Abaixa com a seta pra baixo pressionada
             self.run_zilla = False
             self.duck_zilla = True 
