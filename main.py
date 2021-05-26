@@ -43,7 +43,9 @@ DEADING = zilla_dead
 class Zilla:
     X_position = 10 # posição X do zilla
     Y_position = 290 # posição Y do zilla
-
+    y_duck_position = 320 #posicao y do zilla agachando
+    V_jump = 8.5 #velocidade do pulo do zilla
+    
     def __init__(self):
         self.run_image = RUNNING # puxa as imagens de run 
         self.duck_image = DUCKING # puxa as imagens de duck
@@ -54,6 +56,7 @@ class Zilla:
         self.jump_zilla = False # False porque não ocorre no começo
 
         self.step_index = 0 # Vai servir para animar o Zilla
+        self.v_jump = self.V_jump
         self.image = self.run_image[0] # Serve para inicializar a primeira imagem
         self.zilla_rect = self.image.get_rect() # Faz o hitbox do Zilla
         self.zilla_rect.x = self.X_position # Posição do hitbox
@@ -84,10 +87,21 @@ class Zilla:
             self.jump_zilla = False
 
     def duck(self): 
-        pass
+        self.image = self.duck_image[self.step_index // 5]
+        self.zilla_rect = self.image.get_rect()
+        self.zilla_rect.x = self.X_position # Posição do hitbox
+        self.zilla_rect.y = self.y_duck_position # Posição do hitbox
+        self.step_index += 1
+
     
     def jump(self):
-        pass
+        self.image = self.jump_image[self.step_index // 5]
+        if self.jump_zilla:
+            self.zilla_rect.y -= self.v_jump*4
+            self.v_jump -= 0.8
+        if self.v_jump < - self.V_jump:
+            self.jump_zilla = False
+            self.v_jump = self.V_jump
 
     def run(self):
         self.image = self.run_image[self.step_index // 5]
