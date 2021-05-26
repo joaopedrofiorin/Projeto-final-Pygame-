@@ -1,8 +1,6 @@
 import pygame 
 import os
 
-from pygame.constants import K_DOWN 
-
 pygame.init()
 
 WIDTH = 1250
@@ -93,22 +91,21 @@ class Zilla:
         self.zilla_rect.y = self.y_duck_position # Posição do hitbox
         self.step_index += 1
 
-    
-    def jump(self):
-        self.image = self.jump_image[self.step_index // 5]
-        if self.jump_zilla:
-            self.zilla_rect.y -= self.v_jump*4
-            self.v_jump -= 0.8
-        if self.v_jump < - self.V_jump:
-            self.jump_zilla = False
-            self.v_jump = self.V_jump
-
     def run(self):
         self.image = self.run_image[self.step_index // 5]
         self.zilla_rect = self.image.get_rect()
         self.zilla_rect.x = self.X_position # Posição do hitbox
         self.zilla_rect.y = self.Y_position # Posição do hitbox
         self.step_index += 1
+
+    def jump(self):
+        self.image = self.jump_image
+        if self.jump_zilla:
+            self.zilla_rect.y -= self.v_jump * 4
+            self.v_jump -= 0.8
+        if self.v_jump < - self.V_jump:
+            self.jump_zilla = False
+            self.v_jump = self.V_jump
 
     def draw(self,tela):
         self.zilla_rect = self.image.get_rect()
@@ -124,14 +121,13 @@ game = True
 # Lista Background:
 lista_bg = [imagem_cidade,imagem_floresta,imagem_inverno,imagem_praia,imagem_velho]
 index_bg = 0
-speed_bg = 0.5 #velocidade do jogo
+speed_bg = 10 #velocidade do jogo
 clock = pygame.time.Clock()
-FPS = 400
 
 player = Zilla()
 
 while game:
-    clock.tick(FPS)
+    clock.tick(30)
 
     for eventos in pygame.event.get():
         if eventos.type == pygame.QUIT:
@@ -140,8 +136,7 @@ while game:
     # Manipulação do Background
     if muda_fundo % 1000 == 0 and muda_fundo != 0:
         index_bg = (index_bg + 1) % len(lista_bg)
-        speed_bg += 1
-        FPS += 10
+        speed_bg += 5
 
     image_bg = lista_bg[index_bg]
 
@@ -158,7 +153,7 @@ while game:
 
     player.draw(tela) # Desenha o Zilla na tela
     player.update(Teclas) # Atualiza posição do Zilla
-
+    
     pygame.display.update()
 
 pygame.quit()
