@@ -74,6 +74,7 @@ class Zilla:
             self.run_zilla = False
             self.duck_zilla = False 
             self.jump_zilla = True 
+            self.v_jump = 9.2
         elif Teclas[pygame.K_DOWN] and not self.jump_zilla: # Abaixa com a seta pra baixo pressionada
             self.run_zilla = False
             self.duck_zilla = True 
@@ -102,9 +103,9 @@ class Zilla:
         if self.jump_zilla:
             self.zilla_rect.y -= self.v_jump * 4
             self.v_jump -= 0.8
-        if self.v_jump < - self.V_jump:
+        if self.zilla_rect.y >= self.Y_position:
             self.jump_zilla = False
-            self.v_jump = self.V_jump
+            self.zilla_rect.y = self.Y_position
     
     def draw(self,tela):
         tela.blit(self.image, (self.zilla_rect.x,self.zilla_rect.y))
@@ -149,7 +150,7 @@ while game:
 
     player.draw(tela) # Desenha o Zilla na tela
     player.update(Teclas) # Atualiza posição do Zilla
-       
+    
     pygame.display.update()
 
 pygame.quit()
