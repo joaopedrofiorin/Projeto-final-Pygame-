@@ -42,7 +42,6 @@ class Zilla:
     X_position = 10 # posição X do zilla
     Y_position = 290 # posição Y do zilla
     y_duck_position = 320 #posicao y do zilla agachando
-    V_jump = 9 #velocidade do pulo do zilla
 
     def __init__(self):
         self.run_image = RUNNING # puxa as imagens de run 
@@ -54,7 +53,6 @@ class Zilla:
         self.jump_zilla = False # False porque não ocorre no começo
 
         self.step_index = 0 # Vai servir para animar o Zilla
-        self.v_jump = self.V_jump
         self.image = self.run_image[0] # Serve para inicializar a primeira imagem
         self.zilla_rect = self.image.get_rect() # Faz o hitbox do Zilla
         self.zilla_rect.x = self.X_position # Posição do hitbox
