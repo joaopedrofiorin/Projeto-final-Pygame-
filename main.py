@@ -95,7 +95,7 @@ class Zilla:
 
     
     def jump(self):
-        self.image = self.jump_image[self.step_index // 5]
+        self.image = self.jump_image
         if self.jump_zilla:
             self.zilla_rect.y -= self.v_jump * 4
             self.v_jump -= 0.8
@@ -124,14 +124,13 @@ game = True
 # Lista Background:
 lista_bg = [imagem_cidade,imagem_floresta,imagem_inverno,imagem_praia,imagem_velho]
 index_bg = 0
-speed_bg = 0.5 #velocidade do jogo
+speed_bg = 10 #velocidade do jogo
 clock = pygame.time.Clock()
-FPS = 400
 
 player = Zilla()
 
 while game:
-    clock.tick(FPS)
+    clock.tick(30)
 
     for eventos in pygame.event.get():
         if eventos.type == pygame.QUIT:
@@ -140,8 +139,7 @@ while game:
     # Manipulação do Background
     if muda_fundo % 1000 == 0 and muda_fundo != 0:
         index_bg = (index_bg + 1) % len(lista_bg)
-        speed_bg += 1
-        FPS += 10
+        speed_bg += 5
 
     image_bg = lista_bg[index_bg]
 
@@ -158,7 +156,7 @@ while game:
 
     player.draw(tela) # Desenha o Zilla na tela
     player.update(Teclas) # Atualiza posição do Zilla
-
+    
     pygame.display.update()
 
 pygame.quit()
