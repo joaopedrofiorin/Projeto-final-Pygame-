@@ -1,5 +1,5 @@
 import pygame 
-from pygame.constants import K_DOWN, TIMER_RESOLUTION 
+import os
 
 pygame.init()
 
@@ -60,8 +60,6 @@ class Zilla:
         self.zilla_rect.x = self.X_position # Posição do hitbox
         self.zilla_rect.y = self.Y_position # Posição do hitbox
 
-        
-        self.contador = 10 # Contador
     
     def update(self,Teclas): # Funçao para atualizar o Zilla
         if self.duck_zilla: # Atualiza o abaixar
@@ -94,7 +92,13 @@ class Zilla:
         self.zilla_rect.y = self.y_duck_position # Posição do hitbox
         self.step_index += 1
 
-    
+    def run(self):
+        self.image = self.run_image[self.step_index // 5]
+        self.zilla_rect = self.image.get_rect()
+        self.zilla_rect.x = self.X_position # Posição do hitbox
+        self.zilla_rect.y = self.Y_position # Posição do hitbox
+        self.step_index += 1
+
     def jump(self):
         self.image = self.jump_image
         if self.jump_zilla:
@@ -104,17 +108,7 @@ class Zilla:
             self.jump_zilla = False
             self.v_jump = self.V_jump
     
-    def run(self):
-        self.image = self.run_image[self.step_index // 5]
-        self.zilla_rect = self.image.get_rect()
-        self.zilla_rect.x = self.X_position # Posição do hitbox
-        self.zilla_rect.y = self.Y_position # Posição do hitbox
-        self.step_index += 1
-
     def draw(self,tela):
-        self.zilla_rect = self.image.get_rect()
-        self.zilla_rect.x = self.X_position
-        self.zilla_rect.y = self.Y_position
         tela.blit(self.image, (self.zilla_rect.x,self.zilla_rect.y))
 
 i = 0 #Responsável pelas transições
@@ -157,7 +151,6 @@ while game:
 
     player.draw(tela) # Desenha o Zilla na tela
     player.update(Teclas) # Atualiza posição do Zilla
-    print(player.zilla_rect.y, player.V_jump, player.v_jump, player.jump_zilla)
     
     pygame.display.update()
 
