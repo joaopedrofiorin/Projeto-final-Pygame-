@@ -42,7 +42,7 @@ class Zilla:
     X_position = 10 # posição X do zilla
     Y_position = 290 # posição Y do zilla
     y_duck_position = 320 #posicao y do zilla agachando
-    V_jump = 8.5 #velocidade do pulo do zilla
+    V_jump = 9 #velocidade do pulo do zilla
 
     def __init__(self):
         self.run_image = RUNNING # puxa as imagens de run 
