@@ -75,7 +75,7 @@ class Zilla:
         if Teclas[pygame.K_UP] and not self.jump_zilla: # Pula com a seta pra cima pressionada
             self.run_zilla = False
             self.duck_zilla = False 
-            self.jump_zilla = TIMER_RESOLUTION
+            self.jump_zilla = True 
         elif Teclas[pygame.K_DOWN] and not self.jump_zilla: # Abaixa com a seta pra baixo pressionada
             self.run_zilla = False
             self.duck_zilla = True 
