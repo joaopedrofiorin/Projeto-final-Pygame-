@@ -1,6 +1,4 @@
 import pygame 
-import os
-
 from pygame.constants import K_DOWN 
 
 pygame.init()
@@ -24,13 +22,13 @@ imagem_velho = pygame.image.load('Imagens\Backgrounds\Velho Oeste.png').convert(
 imagem_velho = pygame.transform.scale(imagem_velho, (WIDTH, HEIGHT))
 
 # Godzilla: 
-zilla_run1 = pygame.image.load('Imagens\Dino\ZillaRun1.png').convert()
-zilla_run2 = pygame.image.load('Imagens\Dino\ZillaRun2.png').convert()
-zilla_duck1 = pygame.image.load('Imagens\Dino\ZillaDuck1.png').convert()
-zilla_duck2 = pygame.image.load('Imagens\Dino\ZillaDuck2.png').convert()
-zilla_jump = pygame.image.load('Imagens\Dino\ZillaJump.png').convert()
-zilla_start = pygame.image.load('Imagens\Dino\ZillaStart.png').convert()
-zilla_dead = pygame.image.load('Imagens\Dino\ZillaDead.png').convert()
+zilla_run1 = pygame.image.load('Imagens\Dino\ZillaRun1.png')
+zilla_run2 = pygame.image.load('Imagens\Dino\ZillaRun2.png')
+zilla_duck1 = pygame.image.load('Imagens\Dino\ZillaDuck1.png')
+zilla_duck2 = pygame.image.load('Imagens\Dino\ZillaDuck2.png')
+zilla_jump = pygame.image.load('Imagens\Dino\ZillaJump.png')
+zilla_start = pygame.image.load('Imagens\Dino\ZillaStart.png')
+zilla_dead = pygame.image.load('Imagens\Dino\ZillaDead.png')
 
 # Listas Zilla:
 RUNNING = [zilla_run1,zilla_run2]
@@ -62,6 +60,9 @@ class Zilla:
         self.zilla_rect.x = self.X_position # Posição do hitbox
         self.zilla_rect.y = self.Y_position # Posição do hitbox
 
+        
+        self.contador = 10 # Contador
+    
     def update(self,Teclas): # Funçao para atualizar o Zilla
         if self.duck_zilla: # Atualiza o abaixar
             self.duck()
@@ -102,7 +103,7 @@ class Zilla:
         if self.v_jump < - self.V_jump:
             self.jump_zilla = False
             self.v_jump = self.V_jump
-
+    
     def run(self):
         self.image = self.run_image[self.step_index // 5]
         self.zilla_rect = self.image.get_rect()
@@ -156,6 +157,7 @@ while game:
 
     player.draw(tela) # Desenha o Zilla na tela
     player.update(Teclas) # Atualiza posição do Zilla
+    print(player.zilla_rect.y, player.V_jump, player.v_jump, player.jump_zilla)
     
     pygame.display.update()
 
