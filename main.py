@@ -114,6 +114,8 @@ i = 0 #Responsável pelas transições
 limite = WIDTH #limite da tela para começar uma nova imagem 
 muda_fundo = 0 #marca de transição
 game = True 
+points = 0 #Score do Jogo
+fonte = pygame.font.Font('Fontes\PressStart2P.ttf', 20) # Fonte usada na letra
 
 # Lista Background:
 lista_bg = [imagem_cidade,imagem_floresta,imagem_inverno,imagem_praia,imagem_velho]
@@ -125,7 +127,8 @@ player = Zilla()
 
 while game:
     clock.tick(30)
-
+    
+    
     for eventos in pygame.event.get():
         if eventos.type == pygame.QUIT:
             game = False 
@@ -150,7 +153,13 @@ while game:
 
     player.draw(tela) # Desenha o Zilla na tela
     player.update(Teclas) # Atualiza posição do Zilla
-    
+    # Score
+    points += 1
+    text = fonte.render('Points: ' + str(points), False, (0,255,0) )
+    textRect = text.get_rect()
+    textRect.center = (1100, 40)
+    tela.blit(text, textRect)
+
     pygame.display.update()
 
 pygame.quit()
