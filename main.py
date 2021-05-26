@@ -154,7 +154,7 @@ while game:
     player.draw(tela) # Desenha o Zilla na tela
     player.update(Teclas) # Atualiza posição do Zilla
     # Score
-    points += 1
+    points += int(speed_bg/5)
     text = fonte.render('Points: ' + str(points), False, (0,255,0) )
     textRect = text.get_rect()
     textRect.center = (1100, 40)
