@@ -32,15 +32,15 @@ zilla_start = pygame.image.load('Imagens\Dino\ZillaStart.png')
 zilla_dead = pygame.image.load('Imagens\Dino\ZillaDead.png')
 
 #obstáculos
-obstaculos_cidade=[pygame.image.load ('Imagens\Obstáculos\Cidade\Carro_Grande.png'),
-pygame.image.load ('Imagens\Obstáculos\Cidade\Semáforo_Pequeno.png')]
-obstaculos_floresta=[pygame.image.load ('Imagens\Obstáculos\Floresta\Arvore_Grande.png'),
-pygame.image.load ('Imagens\Obstáculos\Floresta\Arvore_pequena.png')]
-obstaculos_praia=[pygame.image.load ('Imagens\Obstáculos\Praia\Coqueiro_Grande.png'),
-pygame.image.load ('Imagens\Obstáculos\Praia\Bola_pequeno.png')]
-obstaculos_velho_oeste=[pygame.image.load ('Imagens\Obstáculos\Velho Oeste\Cavalo_Grande.png'),
-pygame.image.load ('Imagens\Obstáculos\Velho Oeste\Carrinho_Pequeno.png')]
-obstaculos_vulcão=[pygame.image.load ('Imagens\Obstáculos\Vulcão\Pedras_Grande.png'),
+obstaculos_grandes=[pygame.image.load ('Imagens\Obstáculos\Cidade\Carro_Grande.png'),
+pygame.image.load ('Imagens\Obstáculos\Floresta\Arvore_Grande.png'),
+pygame.image.load ('Imagens\Obstáculos\Praia\Coqueiro_Grande.png'),
+pygame.image.load ('Imagens\Obstáculos\Velho Oeste\Cavalo_Grande.png'),
+pygame.image.load ('Imagens\Obstáculos\Vulcão\Pedras_Grande.png')]
+obstaculos_pequenos=[pygame.image.load ('Imagens\Obstáculos\Cidade\Semáforo_Pequeno.png'),
+pygame.image.load ('Imagens\Obstáculos\Floresta\Arvore_pequena.png'),
+pygame.image.load ('Imagens\Obstáculos\Praia\Bola_pequeno.png'),
+pygame.image.load ('Imagens\Obstáculos\Velho Oeste\Carrinho_Pequeno.png'),
 pygame.image.load ('Imagens\Obstáculos\Vulcão\Dino_Pequeno.png')]
 
 # Listas Zilla:
@@ -49,6 +49,7 @@ JUMPING = zilla_jump
 DUCKING = [zilla_duck1,zilla_duck2]
 STARTING = zilla_start
 DEADING = zilla_dead
+
 
 # Classe Zilla: 
 class Zilla:
@@ -142,11 +143,6 @@ class obstacle:
 
 class big_and_small_objects(obstacle):
 
-    def __init__(self,image):
-        self.type=random.randint(0,1)
-        super().__init__(image,self.type)
-        self.rect.y=325
-
 i = 0 #Responsável pelas transições
 limite = WIDTH #limite da tela para começar uma nova imagem 
 muda_fundo = 0 #marca de transição
@@ -162,6 +158,7 @@ clock = pygame.time.Clock()
 
 player = Zilla()
 
+imagem_classe=[]
 while game:
     clock.tick(30)
     
@@ -176,6 +173,7 @@ while game:
         speed_bg += 5
 
     image_bg = lista_bg[index_bg]
+    imagem_classe.append=(image_bg)
 
     tela.fill((255,255,255))
     Teclas = pygame.key.get_pressed()
@@ -196,6 +194,8 @@ while game:
     textRect = text.get_rect()
     textRect.center = (1100, 40)
     tela.blit(text, textRect)
+
+    imagem_classe.clear()
 
     pygame.display.update()
 
