@@ -1,5 +1,6 @@
 import pygame 
 import os
+import random
 
 pygame.init()
 
@@ -30,6 +31,18 @@ zilla_jump = pygame.image.load('Imagens\Dino\ZillaJump.png')
 zilla_start = pygame.image.load('Imagens\Dino\ZillaStart.png')
 zilla_dead = pygame.image.load('Imagens\Dino\ZillaDead.png')
 
+#obstáculos
+obstaculos_cidade=[pygame.image.load ('Imagens\Obstáculos\Cidade\Carro_Grande.png'),
+pygame.image.load ('Imagens\Obstáculos\Cidade\Semáforo_Pequeno.png')]
+obstaculos_floresta=[pygame.image.load ('Imagens\Obstáculos\Floresta\Arvore_Grande.png'),
+pygame.image.load ('Imagens\Obstáculos\Floresta\Arvore_pequena.png')]
+obstaculos_praia=[pygame.image.load ('Imagens\Obstáculos\Praia\Coqueiro_Grande.png'),
+pygame.image.load ('Imagens\Obstáculos\Praia\Bola_pequeno.png')]
+obstaculos_velho_oeste=[pygame.image.load ('Imagens\Obstáculos\Velho Oeste\Cavalo_Grande.png'),
+pygame.image.load ('Imagens\Obstáculos\Velho Oeste\Carrinho_Pequeno.png')]
+obstaculos_vulcão=[pygame.image.load ('Imagens\Obstáculos\Vulcão\Pedras_Grande.png'),
+pygame.image.load ('Imagens\Obstáculos\Vulcão\Dino_Pequeno.png')]
+
 # Listas Zilla:
 RUNNING = [zilla_run1,zilla_run2]
 JUMPING = zilla_jump
@@ -39,6 +52,7 @@ DEADING = zilla_dead
 
 # Classe Zilla: 
 class Zilla:
+
     X_position = 10 # posição X do zilla
     Y_position = 290 # posição Y do zilla
     y_duck_position = 320 #posicao y do zilla agachando
@@ -109,6 +123,29 @@ class Zilla:
     
     def draw(self,tela):
         tela.blit(self.image, (self.zilla_rect.x,self.zilla_rect.y))
+
+class obstacle:
+
+    def __init__(self,image,type):
+        self.image=image
+        self.type=type
+        self.rect=self.image[self.type].get_rect()
+        self.rect.x= WIDTH
+    
+    def update(self):
+        self.rect.x -= speed_bg
+        if self.rect.x < -self.rect.width:
+            obstacle.pop()
+
+    def draw(self,tela):
+        tela.blit(self.image[self.type],self.rect)
+
+class big_and_small_objects(obstacle):
+
+    def __init__(self,image):
+        self.type=random.randint(0,1)
+        super().__init__(image,self.type)
+        self.rect.y=325
 
 i = 0 #Responsável pelas transições
 limite = WIDTH #limite da tela para começar uma nova imagem 
