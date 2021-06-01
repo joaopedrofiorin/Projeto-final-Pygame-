@@ -235,6 +235,9 @@ while game:
         all_obstacles.add(obstaculo)
         all_sprites.add(obstaculo)
 
+        if len(all_obstacles) < 2: 
+            obstaculo.rect.x += 500
+        
     tela.fill((255,255,255))
     
 
@@ -247,7 +250,7 @@ while game:
     muda_fundo += 1 #tempo de transição
     
     # Verifica se houve colisão entre nave e meteoro
-    hits = pygame.sprite.spritecollide(player, all_obstacles, True)
+    hits = pygame.sprite.spritecollide(player, all_obstacles, True, collided=pygame.sprite.collide_mask)
 
     if hits:
         time.sleep(1)
