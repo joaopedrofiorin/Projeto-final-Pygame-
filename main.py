@@ -1,6 +1,7 @@
 import pygame 
 import os
 import random
+import time
 
 pygame.init()
 
@@ -32,41 +33,59 @@ zilla_start = pygame.image.load('Imagens\Dino\ZillaStart.png')
 zilla_dead = pygame.image.load('Imagens\Dino\ZillaDead.png')
 
 #obstáculos
-#Termina depois esse dici
+altura_pequeno = 200
+altura_grande = 150
+largura_pequeno = 200
+largura_grande = 200
+
+car = pygame.image.load ('Imagens\Obstáculos\Cidade\Carro_Grande.png')
+car = pygame.transform.scale(car, (altura_pequeno, largura_pequeno))
+semaforo = pygame.image.load ('Imagens\Obstáculos\Cidade\Semáforo_Pequeno.png')
+semaforo = pygame.transform.scale(semaforo, (altura_grande, largura_grande))
+arvore_grande = pygame.image.load ('Imagens\Obstáculos\Floresta\Arvore_Grande.png')
+arvore_pequena = pygame.image.load ('Imagens\Obstáculos\Floresta\Arvore_pequena.png')
+dino_pequeno = pygame.image.load ('Imagens\Obstáculos\Vulcão\Dino_Pequeno.png')
+pedra_grande =  pygame.image.load ('Imagens\Obstáculos\Vulcão\Pedras_Grande.png')
+bola_pequena = pygame.image.load ('Imagens\Obstáculos\Praia\Bola_pequeno.png')
+coqueiro_grande = pygame.image.load ('Imagens\Obstáculos\Praia\Coqueiro_Grande.png')
+carrinho_pequeno =  pygame.image.load ('Imagens\Obstáculos\Velho Oeste\Carrinho_Pequeno.png')
+cavalo_grande = pygame.image.load ('Imagens\Obstáculos\Velho Oeste\Cavalo_Grande.png')
+
+#Dicionário
 cenarios = {
     'cidade':{
         'imagem': imagem_cidade, 
         'obstaculos': [
-            pygame.image.load ('Imagens\Obstáculos\Cidade\Carro_Grande.png'),
-            pygame.image.load ('Imagens\Obstáculos\Cidade\Semáforo_Pequeno.png')
+            car,
+            semaforo
         ]
     },
     'floresta':{
         'imagem': imagem_floresta,
         'obstaculos':[
-            pygame.image.load ('Imagens\Obstáculos\Floresta\Arvore_Grande.png'),
-            pygame.image.load ('Imagens\Obstáculos\Floresta\Arvore_pequena.png')
+            arvore_grande,
+            arvore_pequena
         ]
     },
     'vulcao':{
         'imagem': imagem_vulcao,
         'obstaculos':[
-            pygame.image.load ('Imagens\Obstáculos\Vulcão\Dino_Pequeno.png'),
-            pygame.image.load ('Imagens\Obstáculos\Vulcão\Pedras_Grande.png')
+            dino_pequeno,
+            pedra_grande
         ]
     },
     'praia':{
         'imagem': imagem_praia,
         'obstaculos':[
-            pygame.image.load ('Imagens\Obstáculos\Praia\Bola_pequeno.png'),
-            pygame.image.load ('Imagens\Obstáculos\Praia\Coqueiro_Grande.png')
+            bola_pequena,
+            coqueiro_grande
         ]
     },
     'velho oeste':{
         'imagem': imagem_velho,
         'obstaculos':[
-            pygame.image.load ('Imagens\Obstáculos\Velho Oeste\Carrinho_Pequeno.png'),
-            pygame.image.load ('Imagens\Obstáculos\Velho Oeste\Cavalo_Grande.png')
+            carrinho_pequeno,
+            cavalo_grande
         ]
     }
 }
@@ -152,6 +171,13 @@ class Obstacle(pygame.sprite.Sprite):
         self.rect.x -= speed_bg
         if self.rect.x < -self.rect.width:
             self.kill()
+        if self.image ==  car:
+            self.rect.y = 250
+        else:
+            self.rect.y = 200
+        
+        
+        
 
 i = 0 #Responsável pelas transições
 limite = WIDTH #limite da tela para começar uma nova imagem 
@@ -204,7 +230,7 @@ while game:
     image_bg = cenario['imagem']
 
     while len(all_obstacles) < 2:
-        tipo = random.randint(0,len(cenario['obstaculos'])-1)
+        tipo = random.randint(0,1)
         obstaculo = Obstacle(cenario['obstaculos'][tipo])
         all_obstacles.add(obstaculo)
         all_sprites.add(obstaculo)
@@ -219,7 +245,14 @@ while game:
     i -= speed_bg
 
     muda_fundo += 1 #tempo de transição
+    
+    # Verifica se houve colisão entre nave e meteoro
+    hits = pygame.sprite.spritecollide(player, all_obstacles, True)
 
+    if hits:
+        time.sleep(1)
+        game = False
+    
     all_sprites.draw(tela) # Desenha o Zilla na tela
     all_sprites.update() # Atualiza posição do Zilla
     # Score
