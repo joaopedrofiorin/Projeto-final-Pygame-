@@ -43,13 +43,22 @@ car = pygame.transform.scale(car, (altura_pequeno, largura_pequeno))
 semaforo = pygame.image.load ('Imagens\Obstáculos\Cidade\Semáforo_Pequeno.png')
 semaforo = pygame.transform.scale(semaforo, (altura_grande, largura_grande))
 arvore_grande = pygame.image.load ('Imagens\Obstáculos\Floresta\Arvore_Grande.png')
+arvore_grande = pygame.transform.scale(arvore_grande, (altura_grande, largura_grande))
 arvore_pequena = pygame.image.load ('Imagens\Obstáculos\Floresta\Arvore_pequena.png')
-dino_pequeno = pygame.image.load ('Imagens\Obstáculos\Vulcão\Dino_Pequeno.png')
+arvore_pequena = pygame.transform.scale(arvore_pequena, (altura_pequeno, largura_pequeno))
 pedra_grande =  pygame.image.load ('Imagens\Obstáculos\Vulcão\Pedras_Grande.png')
-bola_pequena = pygame.image.load ('Imagens\Obstáculos\Praia\Bola_pequeno.png')
+pedra_grande = pygame.transform.scale(pedra_grande, (altura_grande, largura_grande))
+dino_pequeno = pygame.image.load ('Imagens\Obstáculos\Vulcão\Dino_Pequeno.png')
+dino_pequeno = pygame.transform.scale(dino_pequeno, (altura_pequeno, largura_pequeno))
 coqueiro_grande = pygame.image.load ('Imagens\Obstáculos\Praia\Coqueiro_Grande.png')
-carrinho_pequeno =  pygame.image.load ('Imagens\Obstáculos\Velho Oeste\Carrinho_Pequeno.png')
+coqueiro_grande = pygame.transform.scale(coqueiro_grande, (altura_grande, largura_grande))
+bola_pequena = pygame.image.load ('Imagens\Obstáculos\Praia\Bola_pequeno.png')
+bola_pequena = pygame.transform.scale(bola_pequena, (altura_pequeno, largura_pequeno))
 cavalo_grande = pygame.image.load ('Imagens\Obstáculos\Velho Oeste\Cavalo_Grande.png')
+cavalo_grande = pygame.transform.scale(cavalo_grande, (altura_grande, largura_grande))
+carrinho_pequeno =  pygame.image.load ('Imagens\Obstáculos\Velho Oeste\Carrinho_Pequeno.png')
+carrinho_pequeno = pygame.transform.scale(carrinho_pequeno, (altura_pequeno, largura_pequeno))
+
 
 #Dicionário
 cenarios = {
@@ -175,6 +184,7 @@ class Obstacle(pygame.sprite.Sprite):
             self.rect.y = 250
         else:
             self.rect.y = 200
+    
         
         
         
@@ -236,6 +246,7 @@ while game:
         all_sprites.add(obstaculo)
 
         if len(all_obstacles) < 2: 
+            clock.tick(30)
             obstaculo.rect.x += 500
         
     tela.fill((255,255,255))
@@ -252,9 +263,9 @@ while game:
     # Verifica se houve colisão entre nave e meteoro
     hits = pygame.sprite.spritecollide(player, all_obstacles, True, collided=pygame.sprite.collide_mask)
 
-    if hits:
-        time.sleep(1)
-        game = False
+    #if hits:
+     #   time.sleep(1)
+      #  game = False
     
     all_sprites.draw(tela) # Desenha o Zilla na tela
     all_sprites.update() # Atualiza posição do Zilla
