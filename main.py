@@ -264,8 +264,8 @@ while game:
         all_sprites.add(obstaculo)
 
         if len(all_obstacles) < 2: 
-            obstaculo.rect.x += 500*speed_bg
-        
+            obstaculo.rect.x += 800
+
     tela.fill((255,255,255))
     
 
