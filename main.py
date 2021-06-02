@@ -34,7 +34,7 @@ zilla_dead = pygame.image.load('Imagens\Dino\ZillaDead.png')
 
 #Obstáculos:
 
-#Semaforo grande:
+#Semaforo grande:  #largura,altura
 semaforo = pygame.image.load ('Imagens\Obstáculos\Cidade\Semáforo_Pequeno.png')
 semaforo = pygame.transform.scale(semaforo, (100, 190))
 #Carro pequeno:
@@ -60,10 +60,31 @@ bola_pequena = pygame.image.load ('Imagens\Obstáculos\Praia\Bola_pequeno.png')
 bola_pequena = pygame.transform.scale(bola_pequena, (80, 110))
 #Cavalo grande:
 cavalo_grande = pygame.image.load ('Imagens\Obstáculos\Velho Oeste\Cavalo_Grande.png')
-cavalo_grande = pygame.transform.scale(cavalo_grande, (90, 230))
+cavalo_grande = pygame.transform.scale(cavalo_grande, (90, 200))
 #Carrinho pequeno:
 carrinho_pequeno =  pygame.image.load ('Imagens\Obstáculos\Velho Oeste\Carrinho_Pequeno.png')
-carrinho_pequeno = pygame.transform.scale(carrinho_pequeno, (80, 110))
+carrinho_pequeno = pygame.transform.scale(carrinho_pequeno, (80, 100))
+
+#Objetos voadores: 
+largura = 100
+altura = 100
+
+#Avião Cidade:
+aviao_cidade = pygame.image.load ('Imagens\Obstáculos\Objetos-Voadores\Aviao_Cidade.png')
+aviao_cidade = pygame.transform.scale(aviao_cidade, (largura, altura))
+#Avião Floresta:
+aviao_floresta = pygame.image.load ('Imagens\Obstáculos\Objetos-Voadores\Aviao_Floresta.png')
+aviao_floresta = pygame.transform.scale(aviao_floresta, (largura, altura))
+#Avião Vulcao: 
+aviao_vulcao = pygame.image.load ('Imagens\Obstáculos\Objetos-Voadores\Aviao_Vulcao.png')
+aviao_vulcao = pygame.transform.scale(aviao_vulcao, (largura, altura))
+#Avião Praia:
+aviao_praia = pygame.image.load ('Imagens\Obstáculos\Objetos-Voadores\Aviao_Praia.png')
+aviao_praia = pygame.transform.scale(aviao_praia, (120, 120))
+#Avião Velho Oeste:
+aviao_velho = pygame.image.load ('Imagens\Obstáculos\Objetos-Voadores\Aviao_Velho.Oeste.png')
+aviao_velho = pygame.transform.scale(aviao_velho, (150, 150))
+
 
 
 #Dicionário
@@ -72,35 +93,40 @@ cenarios = {
         'imagem': imagem_cidade, 
         'obstaculos': [
             carro,
-            semaforo
+            semaforo,
+            aviao_cidade
         ]
     },
     'floresta':{
         'imagem': imagem_floresta,
         'obstaculos':[
             arvore_pequena,
-            arvore_grande
+            arvore_grande,
+            aviao_floresta
         ]
     },
     'vulcao':{
         'imagem': imagem_vulcao,
         'obstaculos':[
             dino_pequeno,
-            pedra_grande
+            pedra_grande,
+            aviao_vulcao
         ]
     },
     'praia':{
         'imagem': imagem_praia,
         'obstaculos':[
             bola_pequena,
-            coqueiro_grande
+            coqueiro_grande,
+            aviao_praia
         ]
     },
     'velho oeste':{
         'imagem': imagem_velho,
         'obstaculos':[
             carrinho_pequeno,
-            cavalo_grande
+            cavalo_grande,
+            aviao_velho
         ]
     }
 }
@@ -203,9 +229,14 @@ class Obstacle(pygame.sprite.Sprite):
         elif self.image == coqueiro_grande:
             self.rect.y = 210
         elif self.image == carrinho_pequeno:
-            self.rect.y = 280
+            self.rect.y = 290
         elif self.image == cavalo_grande:
-            self.rect.y = 180
+            self.rect.y = 200
+        elif self.image in [aviao_cidade,aviao_vulcao,aviao_praia]:
+            self.rect.y = 215
+        else: 
+            self.rect.y = 200
+        
     
 i = 0 #Responsável pelas transições
 limite = WIDTH #limite da tela para começar uma nova imagem 
@@ -217,7 +248,7 @@ fonte = pygame.font.Font('Fontes\PressStart2P.ttf', 20) # Fonte usada na letra
 # Lista Background:
 lista_bg = list(cenarios.keys())
 index_bg = 0
-speed_bg = 15 #velocidade do jogo
+speed_bg = 12 #velocidade do jogo
 clock = pygame.time.Clock()
 
 all_sprites = pygame.sprite.Group()
@@ -252,19 +283,19 @@ while game:
     # Manipulação do Background
     if muda_fundo % 1000 == 0 and muda_fundo != 0:
         index_bg = (index_bg + 1) % len(lista_bg)
-        speed_bg += 5
+        speed_bg += 2
 
     cenario = cenarios[lista_bg[index_bg]]
     image_bg = cenario['imagem']
 
     while len(all_obstacles) < 2:
-        tipo = random.randint(0,1)
+        tipo = random.randint(0,2)
         obstaculo = Obstacle(cenario['obstaculos'][tipo])
         all_obstacles.add(obstaculo)
         all_sprites.add(obstaculo)
 
         if len(all_obstacles) < 2: 
-            obstaculo.rect.x += 800
+            obstaculo.rect.x += 800 + (speed_bg//12)*1000
 
     tela.fill((255,255,255))
     
