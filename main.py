@@ -32,32 +32,38 @@ zilla_jump = pygame.image.load('Imagens\Dino\ZillaJump.png')
 zilla_start = pygame.image.load('Imagens\Dino\ZillaStart.png')
 zilla_dead = pygame.image.load('Imagens\Dino\ZillaDead.png')
 
-#obstáculos
-altura_pequeno = 200
-altura_grande = 150
-largura_pequeno = 200
-largura_grande = 200
+#Obstáculos:
 
-car = pygame.image.load ('Imagens\Obstáculos\Cidade\Carro_Grande.png')
-car = pygame.transform.scale(car, (altura_pequeno, largura_pequeno))
+#Semaforo grande:
 semaforo = pygame.image.load ('Imagens\Obstáculos\Cidade\Semáforo_Pequeno.png')
-semaforo = pygame.transform.scale(semaforo, (altura_grande, largura_grande))
+semaforo = pygame.transform.scale(semaforo, (100, 190))
+#Carro pequeno:
+carro = pygame.image.load ('Imagens\Obstáculos\Cidade\Carro_Grande.png')
+carro = pygame.transform.scale(carro, (120, 270))
+#Arvore grande:
 arvore_grande = pygame.image.load ('Imagens\Obstáculos\Floresta\Arvore_Grande.png')
-arvore_grande = pygame.transform.scale(arvore_grande, (altura_grande, largura_grande))
+arvore_grande = pygame.transform.scale(arvore_grande, (100, 180))
+#Arvore pequena: 
 arvore_pequena = pygame.image.load ('Imagens\Obstáculos\Floresta\Arvore_pequena.png')
-arvore_pequena = pygame.transform.scale(arvore_pequena, (altura_pequeno, largura_pequeno))
+arvore_pequena = pygame.transform.scale(arvore_pequena, (210, 290))
+#Pedra grande:
 pedra_grande =  pygame.image.load ('Imagens\Obstáculos\Vulcão\Pedras_Grande.png')
-pedra_grande = pygame.transform.scale(pedra_grande, (altura_grande, largura_grande))
+pedra_grande = pygame.transform.scale(pedra_grande, (140, 200))
+#Dino pequeno:
 dino_pequeno = pygame.image.load ('Imagens\Obstáculos\Vulcão\Dino_Pequeno.png')
-dino_pequeno = pygame.transform.scale(dino_pequeno, (altura_pequeno, largura_pequeno))
+dino_pequeno = pygame.transform.scale(dino_pequeno, (150, 230))
+#Coqueiro grande: 
 coqueiro_grande = pygame.image.load ('Imagens\Obstáculos\Praia\Coqueiro_Grande.png')
-coqueiro_grande = pygame.transform.scale(coqueiro_grande, (altura_grande, largura_grande))
+coqueiro_grande = pygame.transform.scale(coqueiro_grande, (150, 200))
+#Bola pequena:
 bola_pequena = pygame.image.load ('Imagens\Obstáculos\Praia\Bola_pequeno.png')
-bola_pequena = pygame.transform.scale(bola_pequena, (altura_pequeno, largura_pequeno))
+bola_pequena = pygame.transform.scale(bola_pequena, (80, 110))
+#Cavalo grande:
 cavalo_grande = pygame.image.load ('Imagens\Obstáculos\Velho Oeste\Cavalo_Grande.png')
-cavalo_grande = pygame.transform.scale(cavalo_grande, (altura_grande, largura_grande))
+cavalo_grande = pygame.transform.scale(cavalo_grande, (90, 230))
+#Carrinho pequeno:
 carrinho_pequeno =  pygame.image.load ('Imagens\Obstáculos\Velho Oeste\Carrinho_Pequeno.png')
-carrinho_pequeno = pygame.transform.scale(carrinho_pequeno, (altura_pequeno, largura_pequeno))
+carrinho_pequeno = pygame.transform.scale(carrinho_pequeno, (80, 110))
 
 
 #Dicionário
@@ -65,15 +71,15 @@ cenarios = {
     'cidade':{
         'imagem': imagem_cidade, 
         'obstaculos': [
-            car,
+            carro,
             semaforo
         ]
     },
     'floresta':{
         'imagem': imagem_floresta,
         'obstaculos':[
-            arvore_grande,
-            arvore_pequena
+            arvore_pequena,
+            arvore_grande
         ]
     },
     'vulcao':{
@@ -180,15 +186,27 @@ class Obstacle(pygame.sprite.Sprite):
         self.rect.x -= speed_bg
         if self.rect.x < -self.rect.width:
             self.kill()
-        if self.image ==  car:
-            self.rect.y = 250
-        else:
+        if self.image == carro:
+            self.rect.y = 220
+        elif self.image == semaforo:
+            self.rect.y = 210
+        elif self.image == arvore_pequena:
+            self.rect.y = 180
+        elif self.image == arvore_grande: 
             self.rect.y = 200
+        elif self.image == dino_pequeno:
+            self.rect.y = 215
+        elif self.image == pedra_grande: 
+            self.rect.y = 210
+        elif self.image == bola_pequena:
+            self.rect.y = 280
+        elif self.image == coqueiro_grande:
+            self.rect.y = 210
+        elif self.image == carrinho_pequeno:
+            self.rect.y = 280
+        elif self.image == cavalo_grande:
+            self.rect.y = 180
     
-        
-        
-        
-
 i = 0 #Responsável pelas transições
 limite = WIDTH #limite da tela para começar uma nova imagem 
 muda_fundo = 0 #marca de transição
@@ -199,7 +217,7 @@ fonte = pygame.font.Font('Fontes\PressStart2P.ttf', 20) # Fonte usada na letra
 # Lista Background:
 lista_bg = list(cenarios.keys())
 index_bg = 0
-speed_bg = 10 #velocidade do jogo
+speed_bg = 15 #velocidade do jogo
 clock = pygame.time.Clock()
 
 all_sprites = pygame.sprite.Group()
@@ -232,7 +250,7 @@ while game:
         player.jump_zilla = False
 
     # Manipulação do Background
-    if muda_fundo % 1000 == 0 and muda_fundo != 0:
+    if muda_fundo % 100 == 0 and muda_fundo != 0:
         index_bg = (index_bg + 1) % len(lista_bg)
         speed_bg += 5
 
@@ -246,8 +264,7 @@ while game:
         all_sprites.add(obstaculo)
 
         if len(all_obstacles) < 2: 
-            clock.tick(30)
-            obstaculo.rect.x += 500
+            obstaculo.rect.x += 500*speed_bg
         
     tela.fill((255,255,255))
     
@@ -263,9 +280,9 @@ while game:
     # Verifica se houve colisão entre nave e meteoro
     hits = pygame.sprite.spritecollide(player, all_obstacles, True, collided=pygame.sprite.collide_mask)
 
-    #if hits:
-     #   time.sleep(1)
-      #  game = False
+    if hits:
+       time.sleep(1)
+       game = False
     
     all_sprites.draw(tela) # Desenha o Zilla na tela
     all_sprites.update() # Atualiza posição do Zilla
@@ -275,8 +292,6 @@ while game:
     textRect = text.get_rect()
     textRect.center = (1100, 40)
     tela.blit(text, textRect)
-
-    
 
     pygame.display.update()
 
