@@ -250,7 +250,7 @@ while game:
         player.jump_zilla = False
 
     # Manipulação do Background
-    if muda_fundo % 100 == 0 and muda_fundo != 0:
+    if muda_fundo % 1000 == 0 and muda_fundo != 0:
         index_bg = (index_bg + 1) % len(lista_bg)
         speed_bg += 5
 
