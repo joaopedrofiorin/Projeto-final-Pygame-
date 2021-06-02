@@ -66,26 +66,14 @@ carrinho_pequeno =  pygame.image.load ('Imagens\Obstáculos\Velho Oeste\Carrinho
 carrinho_pequeno = pygame.transform.scale(carrinho_pequeno, (80, 100))
 
 #Objetos voadores: 
-largura = 100
-altura = 100
 
-#Avião Cidade:
+#Avião cidade:
 aviao_cidade = pygame.image.load ('Imagens\Obstáculos\Objetos-Voadores\Aviao_Cidade.png')
-aviao_cidade = pygame.transform.scale(aviao_cidade, (largura, altura))
+#aviao_cidade = pygame.transform.scale(cavalo_grande, (largura, altura))
 #Avião Floresta:
 aviao_floresta = pygame.image.load ('Imagens\Obstáculos\Objetos-Voadores\Aviao_Floresta.png')
-aviao_floresta = pygame.transform.scale(aviao_floresta, (largura, altura))
+#aviao_floresta = pygame.transform.scale(cavalo_grande, (largura, altura))
 #Avião Vulcao: 
-aviao_vulcao = pygame.image.load ('Imagens\Obstáculos\Objetos-Voadores\Aviao_Vulcao.png')
-aviao_vulcao = pygame.transform.scale(aviao_vulcao, (largura, altura))
-#Avião Praia:
-aviao_praia = pygame.image.load ('Imagens\Obstáculos\Objetos-Voadores\Aviao_Praia.png')
-aviao_praia = pygame.transform.scale(aviao_praia, (120, 120))
-#Avião Velho Oeste:
-aviao_velho = pygame.image.load ('Imagens\Obstáculos\Objetos-Voadores\Aviao_Velho.Oeste.png')
-aviao_velho = pygame.transform.scale(aviao_velho, (150, 150))
-
-
 
 #Dicionário
 cenarios = {
@@ -232,11 +220,6 @@ class Obstacle(pygame.sprite.Sprite):
             self.rect.y = 290
         elif self.image == cavalo_grande:
             self.rect.y = 200
-        elif self.image in [aviao_cidade,aviao_vulcao,aviao_praia]:
-            self.rect.y = 215
-        else: 
-            self.rect.y = 200
-        
     
 i = 0 #Responsável pelas transições
 limite = WIDTH #limite da tela para começar uma nova imagem 
@@ -311,9 +294,9 @@ while game:
     # Verifica se houve colisão entre nave e meteoro
     hits = pygame.sprite.spritecollide(player, all_obstacles, True, collided=pygame.sprite.collide_mask)
 
-    if hits:
-       time.sleep(1)
-       game = False
+    #if hits:
+    #   time.sleep(1)
+    #   game = False
     
     all_sprites.draw(tela) # Desenha o Zilla na tela
     all_sprites.update() # Atualiza posição do Zilla
