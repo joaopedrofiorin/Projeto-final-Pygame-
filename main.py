@@ -34,7 +34,7 @@ zilla_dead = pygame.image.load('Imagens\Dino\ZillaDead.png')
 
 #Obstáculos:
 
-#Semaforo grande:
+#Semaforo grande:  #largura,altura
 semaforo = pygame.image.load ('Imagens\Obstáculos\Cidade\Semáforo_Pequeno.png')
 semaforo = pygame.transform.scale(semaforo, (100, 190))
 #Carro pequeno:
@@ -60,11 +60,20 @@ bola_pequena = pygame.image.load ('Imagens\Obstáculos\Praia\Bola_pequeno.png')
 bola_pequena = pygame.transform.scale(bola_pequena, (80, 110))
 #Cavalo grande:
 cavalo_grande = pygame.image.load ('Imagens\Obstáculos\Velho Oeste\Cavalo_Grande.png')
-cavalo_grande = pygame.transform.scale(cavalo_grande, (90, 230))
+cavalo_grande = pygame.transform.scale(cavalo_grande, (90, 200))
 #Carrinho pequeno:
 carrinho_pequeno =  pygame.image.load ('Imagens\Obstáculos\Velho Oeste\Carrinho_Pequeno.png')
-carrinho_pequeno = pygame.transform.scale(carrinho_pequeno, (80, 110))
+carrinho_pequeno = pygame.transform.scale(carrinho_pequeno, (80, 100))
 
+#Objetos voadores: 
+
+#Avião cidade:
+aviao_cidade = pygame.image.load ('Imagens\Obstáculos\Objetos-Voadores\Aviao_Cidade.png')
+#aviao_cidade = pygame.transform.scale(cavalo_grande, (largura, altura))
+#Avião Floresta:
+aviao_floresta = pygame.image.load ('Imagens\Obstáculos\Objetos-Voadores\Aviao_Floresta.png')
+#aviao_floresta = pygame.transform.scale(cavalo_grande, (largura, altura))
+#Avião Vulcao: 
 
 #Dicionário
 cenarios = {
@@ -203,9 +212,9 @@ class Obstacle(pygame.sprite.Sprite):
         elif self.image == coqueiro_grande:
             self.rect.y = 210
         elif self.image == carrinho_pequeno:
-            self.rect.y = 280
+            self.rect.y = 290
         elif self.image == cavalo_grande:
-            self.rect.y = 180
+            self.rect.y = 200
     
 i = 0 #Responsável pelas transições
 limite = WIDTH #limite da tela para começar uma nova imagem 
@@ -217,7 +226,7 @@ fonte = pygame.font.Font('Fontes\PressStart2P.ttf', 20) # Fonte usada na letra
 # Lista Background:
 lista_bg = list(cenarios.keys())
 index_bg = 0
-speed_bg = 15 #velocidade do jogo
+speed_bg = 12 #velocidade do jogo
 clock = pygame.time.Clock()
 
 all_sprites = pygame.sprite.Group()
@@ -252,7 +261,7 @@ while game:
     # Manipulação do Background
     if muda_fundo % 1000 == 0 and muda_fundo != 0:
         index_bg = (index_bg + 1) % len(lista_bg)
-        speed_bg += 5
+        speed_bg += 2
 
     cenario = cenarios[lista_bg[index_bg]]
     image_bg = cenario['imagem']
@@ -280,9 +289,9 @@ while game:
     # Verifica se houve colisão entre nave e meteoro
     hits = pygame.sprite.spritecollide(player, all_obstacles, True, collided=pygame.sprite.collide_mask)
 
-    if hits:
-       time.sleep(1)
-       game = False
+    #if hits:
+    #   time.sleep(1)
+    #   game = False
     
     all_sprites.draw(tela) # Desenha o Zilla na tela
     all_sprites.update() # Atualiza posição do Zilla
