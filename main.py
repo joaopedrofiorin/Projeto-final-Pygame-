@@ -86,14 +86,15 @@ aviao_velho = pygame.image.load ('Imagens\Obstáculos\Objetos-Voadores\Aviao_Vel
 aviao_velho = pygame.transform.scale(aviao_velho, (150, 150))
 
 #Música
-pygame.mixer.music.load ('Music\Dinomusic.ogg')
+pygame.mixer.music.load('Music\Dinomusic.ogg')
 pygame.mixer.music.set_volume(0.4)
+# QUERIA POR OUTRA MUSICA PARA A TELA INICIAL
 
 #Tela inicial e final
 inicio = pygame.image.load('Imagens\Inicio-Fim\Inicial.jpg')
 inicio = pygame.transform.scale(inicio, (1250, 400))
 fim = pygame.image.load('Imagens\Inicio-Fim\Final.jpg')
-fim = pygame.transform.scale(inicio, (1250, 400))
+fim = pygame.transform.scale(fim, (1250, 400))
 
 #Dicionário
 cenarios = {
@@ -244,8 +245,7 @@ class Obstacle(pygame.sprite.Sprite):
             self.rect.y = 215
         else: 
             self.rect.y = 200
-        
-    
+           
 i = 0 #Responsável pelas transições
 limite = WIDTH #limite da tela para começar uma nova imagem 
 muda_fundo = 0 #marca de transição
@@ -334,9 +334,12 @@ while game:
     hits = pygame.sprite.spritecollide(player, all_obstacles, True, collided=pygame.sprite.collide_mask)
 
     if hits:
-       time.sleep(1)
+       time.sleep(0.2)
+       tela.blit(fim,(0,0)) 
+       pygame.display.update()
+       time.sleep(2)
        game = False
-    
+       
     all_sprites.draw(tela) # Desenha o Zilla na tela
     all_sprites.update() # Atualiza posição do Zilla
     # Score
