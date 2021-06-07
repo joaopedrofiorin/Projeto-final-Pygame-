@@ -85,7 +85,9 @@ aviao_praia = pygame.transform.scale(aviao_praia, (120, 120))
 aviao_velho = pygame.image.load ('Imagens\Obstáculos\Objetos-Voadores\Aviao_Velho.Oeste.png')
 aviao_velho = pygame.transform.scale(aviao_velho, (150, 150))
 
-
+#Música
+pygame.mixer.music.load ('Music\\tgfcoder-FrozenJam-SeamlessLoop.ogg')
+pygame.mixer.music.set_volume(1)
 
 #Dicionário
 cenarios = {
@@ -257,6 +259,7 @@ all_obstacles = pygame.sprite.Group()
 player = Zilla()
 all_sprites.add(player)
 
+pygame.mixer.music.play(loops=-1)
 while game:
     clock.tick(30)
     
