@@ -86,8 +86,8 @@ aviao_velho = pygame.image.load ('Imagens\Obstáculos\Objetos-Voadores\Aviao_Vel
 aviao_velho = pygame.transform.scale(aviao_velho, (150, 150))
 
 #Música
-pygame.mixer.music.load ('Music\\tgfcoder-FrozenJam-SeamlessLoop.ogg')
-pygame.mixer.music.set_volume(1)
+pygame.mixer.music.load ('Music\Dinomusic.ogg')
+pygame.mixer.music.set_volume(0.4)
 
 #Dicionário
 cenarios = {
