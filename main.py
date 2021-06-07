@@ -89,6 +89,12 @@ aviao_velho = pygame.transform.scale(aviao_velho, (150, 150))
 pygame.mixer.music.load ('Music\Dinomusic.ogg')
 pygame.mixer.music.set_volume(0.4)
 
+#Tela inicial e final
+inicio = pygame.image.load('Imagens\Inicio-Fim\Inicial.jpg')
+inicio = pygame.transform.scale(inicio, (1250, 400))
+fim = pygame.image.load('Imagens\Inicio-Fim\Final.jpg')
+fim = pygame.transform.scale(inicio, (1250, 400))
+
 #Dicionário
 cenarios = {
     'cidade':{
@@ -261,11 +267,7 @@ all_sprites.add(player)
 
 sheesh = True 
 while sheesh:
-    tela.fill((0,191,255))
-    text = fonte.render('Bem-Vindos', False, (0,255,0) )
-    textRect = text.get_rect()
-    textRect.center = (625, 200)
-    tela.blit(text, textRect)
+    tela.blit(inicio, (0,0))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sheesh = False
