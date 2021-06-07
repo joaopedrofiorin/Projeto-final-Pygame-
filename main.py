@@ -86,8 +86,8 @@ aviao_velho = pygame.image.load ('Imagens\Obstáculos\Objetos-Voadores\Aviao_Vel
 aviao_velho = pygame.transform.scale(aviao_velho, (150, 150))
 
 #Música
-#pygame.mixer.music.load ('Music\Dinomusic.ogg')
-#pygame.mixer.music.set_volume(0.4)
+pygame.mixer.music.load ('Music\Dinomusic.ogg')
+pygame.mixer.music.set_volume(0.4)
 
 #Dicionário
 cenarios = {
@@ -259,19 +259,23 @@ all_obstacles = pygame.sprite.Group()
 player = Zilla()
 all_sprites.add(player)
 
-#pygame.mixer.music.play(loops=-1)# Loop da música
-
-
-while True:
+sheesh = True 
+while sheesh:
     tela.fill((0,191,255))
-    text0 = fonte.render('Bem-Vindos', False, (0,255,0) )
-    textRect0 = text0.get_rect()
-    textRect0.center = (1100, 40)
-    tela.blit(text0, textRect0)
-    start = pygame.key.get_pressed()
-    if start[pygame.K_SPACE]:
-        break
+    text = fonte.render('Bem-Vindos', False, (0,255,0) )
+    textRect = text.get_rect()
+    textRect.center = (625, 200)
+    tela.blit(text, textRect)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sheesh = False
+            game = False
+        if event.type == pygame.KEYDOWN:
+            sheesh = False
+
     pygame.display.update()
+
+pygame.mixer.music.play(loops=-1)# Loop da música
 
 while game:
     clock.tick(30)
