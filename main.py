@@ -3,6 +3,20 @@ import os
 import random
 import time
 
+def musica_principal():
+    pygame.mixer.music.load('Music\Dinomusic.ogg')
+    pygame.mixer.music.set_volume(0.4)
+    pygame.mixer.music.play(loops=-1)
+
+def musica_comeco():
+    pygame.mixer.music.load('Music\Bob Moses-Tearing Me Up.mp3')
+    pygame.mixer.music.set_volume(0.4)
+    pygame.mixer.music.play(loops=-1)
+
+def efeito_gameover():
+    gameover = pygame.mixer.Sound('Music\Game_Over.ogg')
+    gameover.play()
+
 pygame.init()
 
 WIDTH = 1250
@@ -85,9 +99,7 @@ aviao_praia = pygame.transform.scale(aviao_praia, (120, 120))
 aviao_velho = pygame.image.load ('Imagens\Obstáculos\Objetos-Voadores\Aviao_Velho.Oeste.png')
 aviao_velho = pygame.transform.scale(aviao_velho, (150, 150))
 
-#Música
-pygame.mixer.music.load('Music\Dinomusic.ogg')
-pygame.mixer.music.set_volume(0.4)
+
 # QUERIA POR OUTRA MUSICA PARA A TELA INICIAL
 
 #Tela inicial e final
@@ -265,6 +277,7 @@ all_obstacles = pygame.sprite.Group()
 player = Zilla()
 all_sprites.add(player)
 
+musica_comeco()
 sheesh = True 
 while sheesh:
     tela.blit(inicio, (0,0))
@@ -277,8 +290,7 @@ while sheesh:
 
     pygame.display.update()
 
-pygame.mixer.music.play(loops=-1)# Loop da música
-
+musica_principal()
 while game:
     clock.tick(30)
     
@@ -334,10 +346,12 @@ while game:
     hits = pygame.sprite.spritecollide(player, all_obstacles, True, collided=pygame.sprite.collide_mask)
 
     if hits:
+       pygame.mixer.music.pause()
+       efeito_gameover()
        time.sleep(0.2)
        tela.blit(fim,(0,0)) 
        pygame.display.update()
-       time.sleep(2)
+       time.sleep(2.8)
        game = False
        
     all_sprites.draw(tela) # Desenha o Zilla na tela
