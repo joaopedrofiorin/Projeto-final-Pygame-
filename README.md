@@ -8,3 +8,5 @@
 Zilla Game, jogo inspirado no T-rex Game do Google, apresenta mudanças durante o jogo, como por exemplo, as de background, os obstáculos e mudança de estado do Zilla.
 
 Dizem que ninguém nunca pisou no velho-oeste, lá eh muito perigoso!!
+
+Acesso a curta gameplay em: https://www.youtube.com/watch?v=VaInn13JC6E&ab_channel=EnzoQuental
