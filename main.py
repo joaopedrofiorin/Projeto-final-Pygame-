@@ -2,24 +2,27 @@ import pygame
 import random
 import time
 
+# Música principal
 def musica_principal():
     pygame.mixer.music.load('Music\Dinomusic.ogg')
     pygame.mixer.music.set_volume(0.4)
     pygame.mixer.music.play(loops=-1)
 
+# Música inicial
 def musica_comeco():
     pygame.mixer.music.load('Music\Bob Moses-Tearing Me Up.mp3')
     pygame.mixer.music.set_volume(0.4)
     pygame.mixer.music.play(loops=-1)
 
+# Efeito game over
 def efeito_gameover():
     gameover = pygame.mixer.Sound('Music\Game_Over.ogg')
     gameover.play()
 
 pygame.init()
 
-WIDTH = 1250
-HEIGHT = 400
+WIDTH = 1250 # comprimento da tela
+HEIGHT = 400 # altura da tela
 
 tela = pygame.display.set_mode((WIDTH,HEIGHT))
 pygame.display.set_caption('Zilla Game')
@@ -98,8 +101,6 @@ aviao_praia = pygame.transform.scale(aviao_praia, (120, 120))
 aviao_velho = pygame.image.load ('Imagens\Obstáculos\Objetos-Voadores\Aviao_Velho.Oeste.png')
 aviao_velho = pygame.transform.scale(aviao_velho, (150, 150))
 
-
-# QUERIA POR OUTRA MUSICA PARA A TELA INICIAL
 
 #Tela inicial e final
 inicio = pygame.image.load('Imagens\Inicio-Fim\Inicial.jpg')
@@ -209,7 +210,7 @@ class Zilla(pygame.sprite.Sprite):
         self.rect.y = self.Y_position # Posição do hitbox
         self.step_index += 1
 
-    def jump(self):
+    def jump(self):     # Funcao para fazer o zilla pular
         self.image = self.jump_image
         if self.jump_zilla:
             self.rect.y -= self.v_jump * 4
@@ -218,9 +219,10 @@ class Zilla(pygame.sprite.Sprite):
             self.jump_zilla = False
             self.rect.y = self.Y_position
     
-    def draw(self,tela):
+    def draw(self,tela):    # desenha o zilla na tela
         tela.blit(self.image, (self.rect.x,self.rect.y))
 
+# classe de obstáculos
 class Obstacle(pygame.sprite.Sprite):
     def __init__(self,image):
         pygame.sprite.Sprite.__init__(self)
@@ -228,7 +230,7 @@ class Obstacle(pygame.sprite.Sprite):
         self.rect=self.image.get_rect()
         self.rect.x= WIDTH
     
-    def update(self):
+    def update(self):  
         self.rect.x -= speed_bg
         if self.rect.x < -self.rect.width:
             self.kill()
@@ -270,7 +272,7 @@ index_bg = 0
 speed_bg = 12 #velocidade do jogo
 clock = pygame.time.Clock()
 
-all_sprites = pygame.sprite.Group()
+all_sprites = pygame.sprite.Group()  
 all_obstacles = pygame.sprite.Group()
 
 player = Zilla()
@@ -278,6 +280,8 @@ all_sprites.add(player)
 
 musica_comeco()
 sheesh = True 
+
+# loop tela inicial
 while sheesh:
     tela.blit(inicio, (0,0))
     for event in pygame.event.get():
@@ -290,6 +294,8 @@ while sheesh:
     pygame.display.update()
 
 musica_principal()
+
+# loop principal
 while game:
     clock.tick(30)
     
@@ -321,6 +327,7 @@ while game:
     cenario = cenarios[lista_bg[index_bg]]
     image_bg = cenario['imagem']
 
+    # loop para gerar objetos
     while len(all_obstacles) < 2:
         tipo = random.randint(0,2)
         obstaculo = Obstacle(cenario['obstaculos'][tipo])
@@ -332,7 +339,7 @@ while game:
 
     tela.fill((255,255,255))
     
-
+    # rolagem dos backgrounds
     tela.blit(image_bg, (i,0))
     tela.blit(image_bg, (limite+i,0))
     if i <= -limite:
